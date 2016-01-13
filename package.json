@@ -2,7 +2,7 @@
   "name": "textmode",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.es6",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:hngrhorace/textmode.git"
