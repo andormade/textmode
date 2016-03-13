@@ -28,7 +28,6 @@ export default class CharacterSprite {
 	 */
 	_createCanvas() {
 		this.canvas = document.createElement('canvas');
-		document.body.appendChild(this.canvas);
 		this.canvas.width = this.imageEl.width;
 		this.canvas.height = this.imageEl.height;
 		this.context = this.canvas.getContext('2d');
