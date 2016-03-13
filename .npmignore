@@ -1,4 +1,7 @@
+src
 node_modules
+.babelrc
+.gitignore
 bundle
-dist
+.git
 test.html
