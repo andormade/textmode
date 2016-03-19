@@ -1,7 +1,3 @@
-import CharacterSprite from './characterSprite';
-import SpriteCollection from './spriteCollection';
+import TextMode from './textmode';
 
-export default {
-	CharacterSprite : CharacterSprite,
-	SpriteCollection : SpriteCollection
-};
+export default TextMode;

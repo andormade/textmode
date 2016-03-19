@@ -1,21 +1,24 @@
 import CharacterSprite from './characterSprite';
 
+const NUM_ROWS = 16;
+const NUM_COLS = 8;
+
 export default class SpriteCollection {
 	constructor(options) {
 		this.sprites = [];
 		this.imageEl = options.imageEl;
 		this.colors = options.colors;
-		this.characterWidth = options.characterWidth;
-		this.characterHeight = options.characterHeight;
-		this.rows = options.rows;
-		this.cols = options.cols;
+		this.characterWidth = this.imageEl.width / NUM_COLS;
+		this.characterHeight = this.imageEl.height / NUM_ROWS;
+		this.rows = NUM_ROWS;
+		this.cols = NUM_COLS;
 
 		this.populateSprites();
 	}
 
 	populateSprites() {
-		options.colors.forEach(function(fgColor) {
-			options.colors.forEach(function(bgColor) {
+		this.colors.forEach(function(fgColor) {
+			this.colors.forEach(function(bgColor) {
 				if (fgColor !== bgColor) {
 					this.sprites[fgColor + bgColor] = new CharacterSprite({
 						imageEl : this.imageEl,
@@ -37,6 +40,6 @@ export default class SpriteCollection {
 	 * @returns {void}
 	 */
 	getCharacter(char, fgColor, bgColor) {
-		this.sprites[fgColor + bgColor].getCharacter(char);
+		return this.sprites[fgColor + bgColor].getCharacter(char);
 	}
 }
