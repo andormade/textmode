@@ -3,7 +3,7 @@ import SpriteCollection from './spriteCollection';
 import TextPage from './textPage';
 
 /**
- *
+ * Rendering layer
  *
  *
  */
@@ -35,8 +35,8 @@ export default class TextMode extends TextPage {
 	 * @returns {void}
 	 */
 	render() {
-		for (var row = 0; row < this.rows; row++) {
-			for (var col = 0; col < this.cols; col++) {
+		for (var col = 0; col < this.cols; col++) {
+			for (var row = 0; row < this.rows; row++) {
 				this.renderCharacter(row, col);
 			}
 		}
@@ -58,8 +58,8 @@ export default class TextMode extends TextPage {
 
 		this.context.putImageData(
 			imageData,
-			characterSet.characterWidth * row,
-			characterSet.characterHeight * col
+			characterSet.characterWidth * col,
+			characterSet.characterHeight * row
 		);
 	}
 
