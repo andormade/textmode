@@ -19,7 +19,7 @@ export default class TextMode extends TextPage {
 		this.characterSets = [];
 		options.characterSets.forEach(function(characterSet) {
 			this.characterSets.push(new SpriteCollection({
-				imageEl : characterSet.imageEl,
+				imageEl : characterSet,
 				colors  : options.colors
 			}));
 		}.bind(this));
@@ -79,5 +79,20 @@ export default class TextMode extends TextPage {
 	 */
 	get height() {
 		return this.rows * this.characterSets[0].characterHeight;
+	}
+
+	setCharacterSet(row, col, characterSet) {
+		super.setCharacterSet(row, col, characterSet);
+		this.renderCharacter(row, col);
+	}
+
+	setBackgroundColor(row, col, backgroundColor) {
+		super.setBackgroundColor(row, col, backgroundColor);
+		this.renderCharacter(row, col);
+	}
+
+	setForegroundColor(row, col, foregroundColor) {
+		super.renderCharacter(row, col, foregroundColor);
+		this.renderCharacter(row, col);
 	}
 }
