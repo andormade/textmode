@@ -1,6 +1,5 @@
-import ColorMap from './colorMap';
-import SpriteCollection from './spriteCollection';
 import TextPage from './textPage';
+import LetterSprite from 'letter-sprite';
 
 /**
  * Rendering layer
@@ -18,23 +17,24 @@ export default class TextMode extends TextPage {
 
 		this.characterSets = [];
 		options.characterSets.forEach(function(characterSet) {
-			this.characterSets.push(new SpriteCollection({
-				imageEl : characterSet,
-				colors  : options.colors
-			}));
-		}.bind(this));
+			this.characterSets.push(new LetterSprite(
+				characterSet, 16, 8, options.colors, options.colors
+			));
+		}, this);
 
 		this.canvas = options.canvas;
-		this.canvas.width = this.width;
-		this.canvas.height = this.height;
-		this.context = this.canvas.getContext('2d');
 	}
 
 	/**
+	 * Renders the page.
 	 *
 	 * @returns {void}
 	 */
 	render() {
+		this.canvas.width = this.width;
+		this.canvas.height = this.height;
+		this.context = this.canvas.getContext('2d');
+
 		for (var col = 0; col < this.cols; col++) {
 			for (var row = 0; row < this.rows; row++) {
 				this.renderCharacter(row, col);
@@ -48,18 +48,15 @@ export default class TextMode extends TextPage {
 	 * @returns {void}
 	 */
 	renderCharacter(row, col) {
-		var characterSet = this.characterSets[this.getCharacterSet(row, col)];
+		var letterSprite = this.characterSets[this.getCharacterSet(row, col)];
 
-		var imageData = characterSet.getCharacter(
+		letterSprite.letMeDrawIt(
+			this.context,
 			this.getCharacterCode(row, col),
-			this.getForegroundColor(row, col),
-			this.getBackgroundColor(row, col)
-		);
-
-		this.context.putImageData(
-			imageData,
-			characterSet.characterWidth * col,
-			characterSet.characterHeight * row
+		 	this.getBackgroundColor(row, col),
+		 	this.getForegroundColor(row, col),
+			letterSprite.characterWidth * col,
+			letterSprite.characterHeight * row
 		);
 	}
 
@@ -79,20 +76,5 @@ export default class TextMode extends TextPage {
 	 */
 	get height() {
 		return this.rows * this.characterSets[0].characterHeight;
-	}
-
-	setCharacterSet(row, col, characterSet) {
-		super.setCharacterSet(row, col, characterSet);
-		this.renderCharacter(row, col);
-	}
-
-	setBackgroundColor(row, col, backgroundColor) {
-		super.setBackgroundColor(row, col, backgroundColor);
-		this.renderCharacter(row, col);
-	}
-
-	setForegroundColor(row, col, foregroundColor) {
-		super.renderCharacter(row, col, foregroundColor);
-		this.renderCharacter(row, col);
 	}
 }

@@ -2,6 +2,6 @@ src
 node_modules
 .babelrc
 .gitignore
-bundle
+browser
 .git
 test.html

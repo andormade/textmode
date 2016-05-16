@@ -1,14 +1,29 @@
-import Utils from './utils';
-
 export default class TextPage {
 	constructor(options) {
-		this.characterSetMap = options.characterSetMap,
-		this.backgroundColors = options.backgroundColors,
-		this.foregroundColors = options.foregroundColors,
-		this.colors = options.colors,
-		this.text = this.parseText(options.text);
-		this.rows = options.text.length;
-		this.cols = Utils.getLongestRowsLength(options.text);
+		this.colors = options.colors;
+		this.setData(options);
+	}
+
+	get rows() {
+		return this.text.length;
+	}
+
+	get cols() {
+		if (this.text[0]) {
+			return this.text[0].length;
+		}
+		return 0;
+	}
+
+	setText(text) {
+		this.text = this.parseText(text);
+	}
+
+	setData(data) {
+		this.setText(data.text);
+		this.foregroundColors = data.foregroundColors;
+		this.backgroundColors = data.backgroundColors;
+		this.characterSetMap = data.characterSetMap;
 	}
 
 	parseText(text) {
