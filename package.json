@@ -20,6 +20,6 @@
     "browserify": "^13.0.0"
   },
   "dependencies": {
-    "letter-sprite": "0.0.5"
+    "letter-sprite": "0.0.7"
   }
 }
