@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/textmode.js",
   "scripts": {
-    "build:babel": "babel src/js --out-dir dist",
-    "build:browserify": "browserify dist/textmode.js --standalone TextMode > browser/textmode.js",
+    "build:babel": "babel src --out-dir dist",
+    "build:browserify": "mkdir -p browser && browserify dist/textmode.js --standalone TextMode > browser/textmode.js",
     "build": "npm run build:babel && npm run build:browserify",
     "test": "mocha tests/*.js"
   },
