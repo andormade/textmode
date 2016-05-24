@@ -1,6 +1,6 @@
 {
   "name": "textmode",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/textmode.js",
   "scripts": {
