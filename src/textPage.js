@@ -51,7 +51,7 @@ export default class TextPage {
 		return text;
 	}
 
-	getCharacterCode(row, col) {
+	getCharacter(row, col) {
 		if (
 			this.text[row] &&
 			this.text[row][col]
@@ -85,5 +85,9 @@ export default class TextPage {
 
 	setCharacterSet(row, col, characterSet) {
 		this.characterSetMap[row][col] = characterSet;
+	}
+
+	setCharacter(row, col, character) {
+		this.text[row][col] = character;
 	}
 }

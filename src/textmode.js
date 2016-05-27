@@ -52,7 +52,7 @@ export default class TextMode extends TextPage {
 
 		letterSprite.letMeDrawIt(
 			this.context,
-			this.getCharacterCode(row, col),
+			this.getCharacter(row, col),
 		 	this.getBackgroundColor(row, col),
 		 	this.getForegroundColor(row, col),
 			letterSprite.characterWidth * col,
