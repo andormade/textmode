@@ -1,11 +1,11 @@
 {
   "name": "textmode",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "",
   "main": "dist/textmode.js",
   "scripts": {
     "build:babel": "babel src --out-dir dist",
-    "build:browserify": "mkdir -p browser && browserify dist/textmode.js --standalone TextMode > browser/textmode.js",
+    "build:browserify": "browserify dist/textmode.js --standalone TextMode > browser/textmode.js",
     "build": "npm run build:babel && npm run build:browserify",
     "test": "mocha tests/*.js"
   },
@@ -20,6 +20,6 @@
     "browserify": "^13.0.0"
   },
   "dependencies": {
-    "letter-sprite": "0.0.7"
+    "letter-sprite": "0.0.8"
   }
 }

@@ -14,15 +14,17 @@ export default class TextMode extends TextPage {
 	 */
 	constructor(options) {
 		super(options);
+		this.renderLetterSprites(options.characterSets, options.colors);
+		this.canvas = options.canvas;
+	}
 
+	renderLetterSprites(characterSets, colors) {
 		this.characterSets = [];
-		options.characterSets.forEach(function(characterSet) {
+		characterSets.forEach(function(characterSet) {
 			this.characterSets.push(new LetterSprite(
-				characterSet, 16, 8, options.colors, options.colors
+				characterSet, 16, 8, colors, colors
 			));
 		}, this);
-
-		this.canvas = options.canvas;
 	}
 
 	/**
