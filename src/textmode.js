@@ -37,8 +37,8 @@ export default class TextMode extends TextPage {
 		this.canvas.height = this.height;
 		this.context = this.canvas.getContext('2d');
 
-		for (var col = 0; col < this.cols; col++) {
-			for (var row = 0; row < this.rows; row++) {
+		for (var row = 0; row < this.rows; row++) {
+			for (var col = 0; col < this.text[row].length; col++) {
 				this.renderCharacter(row, col);
 			}
 		}

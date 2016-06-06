@@ -9,46 +9,15 @@ export default class TextPage {
 	}
 
 	get cols() {
-		if (this.text[0]) {
-			return this.text[0].length;
-		}
-		return 0;
-	}
-
-	setText(text) {
-		this.text = this.parseText(text);
+		return this.text[this.longestRow].length;
 	}
 
 	setData(data) {
-		this.setText(data.text);
+		this.text = data.text;
 		this.foregroundColors = data.foregroundColors;
 		this.backgroundColors = data.backgroundColors;
 		this.characterSetMap = data.characterSetMap;
-	}
-
-	parseText(text) {
-		text.forEach(function(row) {
-			if (typeof row === 'string') {
-				row = row.split('');
-			}
-			if (Array.isArray(row)) {
-				row.forEach(function(character, index) {
-					if (typeof character === 'string') {
-						row[index] = character.charCodeAt(0);
-					}
-					else if (typeof character === 'number') {
-					}
-					else {
-						throw new Error(); // TODO
-					}
-				});
-			}
-			else {
-				throw new Error(); // TODO
-			}
-		});
-
-		return text;
+		this._findLongestRow();
 	}
 
 	getCharacter(row, col) {
@@ -89,5 +58,14 @@ export default class TextPage {
 
 	setCharacter(row, col, character) {
 		this.text[row][col] = character;
+	}
+
+	_findLongestRow() {
+		this.longestRow = 0;
+		this.text.forEach((row, index) => {
+			if (this.text[this.longestRow].length < row.length) {
+				this.longestRow = index;
+			}
+		});
 	}
 }
