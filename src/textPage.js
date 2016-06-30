@@ -36,12 +36,20 @@ export default class TextPage {
 		return this.characterSetMap[row][col];
 	}
 
+	getBackgroundHexColor(row, col) {
+		return this.colors[this.getBackgroundColor(row, col)];
+	}
+
+	getForegroundHexColor(row, col) {
+		return this.colors[this.getForegroundColor(row, col)];
+	}
+
 	getBackgroundColor(row, col) {
-		return this.colors[this.backgroundColors[row][col]];
+		return this.backgroundColors[row][col];
 	}
 
 	getForegroundColor(row, col) {
-		return this.colors[this.foregroundColors[row][col]];
+		return this.foregroundColors[row][col];
 	}
 
 	setBackgroundColor(row, col, backgroundColor) {

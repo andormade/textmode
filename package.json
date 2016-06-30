@@ -1,12 +1,13 @@
 {
   "name": "textmode",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "dist/textmode.js",
   "scripts": {
     "build:babel": "babel src --out-dir dist",
     "build:browserify": "browserify dist/textmode.js --standalone TextMode > browser/textmode.js",
     "build": "npm run build:babel && npm run build:browserify",
+	"prepublish": "npm run build",
     "test": "mocha tests/*.js"
   },
   "repository": {
