@@ -1,5 +1,5 @@
 import TextPage from './textPage';
-import LetterSprite from 'letter-sprite';
+import SpriteFont from 'spritefont';
 
 /**
  * Rendering layer
@@ -14,14 +14,14 @@ export default class TextMode extends TextPage {
 	 */
 	constructor(options) {
 		super(options);
-		this.renderLetterSprites(options.characterSets, options.colors);
+		this.renderSpriteFonts(options.characterSets, options.colors);
 		this.canvas = options.canvas;
 	}
 
-	renderLetterSprites(characterSets, colors) {
+	renderSpriteFonts(characterSets, colors) {
 		this.characterSets = [];
 		characterSets.forEach(function(characterSet) {
-			this.characterSets.push(new LetterSprite(
+			this.characterSets.push(new SpriteFont(
 				characterSet, 16, 8, colors, colors
 			));
 		}, this);
@@ -50,15 +50,15 @@ export default class TextMode extends TextPage {
 	 * @returns {void}
 	 */
 	renderCharacter(row, col) {
-		var letterSprite = this.characterSets[this.getCharacterSet(row, col)];
+		var spriteFont = this.characterSets[this.getCharacterSet(row, col)];
 
-		letterSprite.letMeDrawIt(
+		spriteFont.letMeDrawIt(
 			this.context,
 			this.getCharacter(row, col),
 		 	this.getBackgroundHexColor(row, col),
 		 	this.getForegroundHexColor(row, col),
-			letterSprite.characterWidth * col,
-			letterSprite.characterHeight * row
+			spriteFont.characterWidth * col,
+			spriteFont.characterHeight * row
 		);
 	}
 
