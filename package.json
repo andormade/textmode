@@ -1,6 +1,6 @@
 {
   "name": "textmode",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "",
   "main": "dist/textmode.js",
   "scripts": {
@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "core-js": "^2.4.1",
-    "spritefont": "0.1.0"
+    "spritefont": "0.1.1"
   }
 }
