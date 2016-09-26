@@ -1,5 +1,6 @@
 import TextPage from './textPage';
 import SpriteFont from 'spritefont';
+import Promise from 'core-js/library/es6/promise';
 
 /**
  * Rendering layer
@@ -14,17 +15,26 @@ export default class TextMode extends TextPage {
 	 */
 	constructor(options) {
 		super(options);
-		this.renderSpriteFonts(options.characterSets, options.colors);
 		this.canvas = options.canvas;
+		this.characterSets = options.characterSets;
+		this.colors = options.colors;
 	}
 
-	renderSpriteFonts(characterSets, colors) {
-		this.characterSets = [];
-		characterSets.forEach(function(characterSet) {
-			this.characterSets.push(new SpriteFont(
-				characterSet, 16, 8, colors, colors
-			));
+	renderSpriteFonts() {
+		this.areSpriteFontsRendered = false;
+		this.spriteFonts = [];
+		let spriteFontPromises = [];
+		this.characterSets.forEach((characterSet) => {
+			let spriteFont = new SpriteFont(
+				characterSet, 16, 8, this.colors, this.colors
+			);
+			spriteFontPromises.push(spriteFont.render());
+			this.spriteFonts.push(spriteFont);
 		}, this);
+
+		return Promise.race(spriteFontPromises).then(() => {
+			this.areSpriteFontsRendered = true;
+		});
 	}
 
 	/**
@@ -33,6 +43,22 @@ export default class TextMode extends TextPage {
 	 * @returns {void}
 	 */
 	render() {
+		if (this.areSpriteFontsRendered) {
+			this.renderSync();
+		}
+		else {
+			this.renderSpriteFonts().then(() => {
+				this.renderSync();
+			});
+		}
+	}
+
+	/**
+	 * Renders the page.
+	 *
+	 * @returns {void}
+	 */
+	renderSync() {
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
 		this.context = this.canvas.getContext('2d');
@@ -50,7 +76,7 @@ export default class TextMode extends TextPage {
 	 * @returns {void}
 	 */
 	renderCharacter(row, col) {
-		var spriteFont = this.characterSets[this.getCharacterSet(row, col)];
+		var spriteFont = this.spriteFonts[this.getCharacterSet(row, col)];
 
 		spriteFont.letMeDrawIt(
 			this.context,
@@ -68,7 +94,7 @@ export default class TextMode extends TextPage {
 	 * @returns {number}
 	 */
 	get width() {
-		return this.cols * this.characterSets[0].characterWidth;
+		return this.cols * this.spriteFonts[0].characterWidth;
 	}
 
 	/**
@@ -77,6 +103,6 @@ export default class TextMode extends TextPage {
 	 * @returns {number}
 	 */
 	get height() {
-		return this.rows * this.characterSets[0].characterHeight;
+		return this.rows * this.spriteFonts[0].characterHeight;
 	}
 }
