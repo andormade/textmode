@@ -4,20 +4,13 @@ export default class TextPage {
 		this.setData(options);
 	}
 
-	get rows() {
-		return this.text.length;
-	}
-
-	get cols() {
-		return this.text[this.longestRow].length;
-	}
-
 	setData(data) {
 		this.text = data.text;
 		this.foregroundColors = data.foregroundColors;
 		this.backgroundColors = data.backgroundColors;
 		this.characterSetMap = data.characterSetMap;
-		this._findLongestRow();
+		this.rows = data.rows || this.text.length;
+		this.cols = data.cols || this.text[this._findLongestRow()].length;
 	}
 
 	getCharacter(row, col) {
@@ -75,5 +68,7 @@ export default class TextPage {
 				this.longestRow = index;
 			}
 		});
+
+		return this.longestRow;
 	}
 }
